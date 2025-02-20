@@ -1,0 +1,174 @@
+/* Global Styles */
+
+/* Reset e configurações gerais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #FFFFFF;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden; /* Bloqueia rolagem horizontal */
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px; /* Reduzi espaço */
+  width: 100%;
+  max-width: 1820px;
+  padding: 20px 0; /* Menos padding */
+}
+
+.header-title {
+  font-size: 50px; /* Pequeno ajuste para caber melhor */
+  font-weight: 300;
+  line-height: 58px;
+  color: #333333;
+  max-width: 1820px;
+}
+
+.header-description {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0.5px;
+  color: #666666;
+  max-width: 900px; /* Reduzi um pouco */
+}
+
+/* NAVIGATION BAR */
+.navbar {
+  width: 100%;
+  max-width: 1820px;
+  height: 80px; /* Reduzi altura */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px; /* Menos padding */
+  border-top: 1px solid #E6E6E6;
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Menos espaço */
+}
+
+.filter-label {
+  font-size: 15px;
+  color: #666666;
+}
+
+.filter-dropdown {
+  width: 180px; /* Reduzi um pouco */
+  height: 24px;
+  border-bottom: 1px solid #C8C8C8;
+  font-size: 15px;
+  color: #002B56;
+  background: white;
+  cursor: pointer;
+}
+
+.button-clear {
+  width: 150px; /* Reduzi tamanho */
+  height: 36px;
+  border: 1px solid #C8C8C8;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #C8C8C8;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button-clear:hover {
+  background: #C8C8C8;
+  color: white;
+}
+
+/* SECTION - CHARACTERS */
+.section {
+  width: 100%;
+  max-width: 1820px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 40px; /* Ajustei para evitar sobra de espaço */
+  overflow-y: hidden; /* Bloqueia rolagem inicial */
+}
+
+/* GRID DE PERSONAGENS */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px; /* Menos espaço entre os cards */
+  width: 100%;
+  max-width: 1820px;
+  align-items: flex-start;
+}
+
+/* CHARACTER CARD */
+.character-card {
+  width: 100%;
+  max-width: 420px; /* Ajustei para caber melhor */
+  background: #F8F8F8;
+  padding: 14px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.character-image {
+  width: 100%;
+  height: 220px; /* Reduzi um pouco */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* LOAD MORE BUTTON */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px; /* Reduzi espaço */
+  padding-bottom: 20px;
+}
+
+.load-more-button {
+  width: 200px;
+  height: 42px;
+  border: 1px solid #002B53;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #002B53;
+  background: white;
+  cursor: pointer;
+}
+
+.load-more-button:hover {
+  background: #002B53;
+  color: white;
+}
+
+.show-less {
+  margin-left: 10px;
+}
+
+/* PERMITIR ROLAGEM SOMENTE APÓS "LOAD MORE" */
+.section.active-scroll {
+  overflow-y: auto;
+}

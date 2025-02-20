@@ -1,0 +1,8 @@
+.section {
+  width: 100%;
+  max-width: 1820px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Agora tudo fica alinhado à esquerda */
+}

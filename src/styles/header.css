@@ -1,0 +1,20 @@
+.header {
+  width: 100%;
+  max-width: 1820px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.header-title {
+  font-size: 54px;
+  font-weight: 300;
+  color: #333333;
+}
+
+.header-description {
+  font-size: 22px;
+  color: #666666;
+  max-width: 960px;
+}

@@ -1,101 +1,140 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { fetchCharacters } from "@/services/swapiService";
+import { Character } from "@/types/swapi";
 import Image from "next/image";
+import "../styles/global.css"; // Importação única do CSS global
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [visibleCount, setVisibleCount] = useState<number>(8);
+  const [selectedPlanet, setSelectedPlanet] = useState<string>("All");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [planets, setPlanets] = useState<string[]>([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      const charData = await fetchCharacters();
+
+      // Obter a lista única de planetas
+      const uniquePlanets = Array.from(new Set(charData.map((char) => char.homeworld)))
+        .filter((planet) => planet !== undefined && planet !== null)
+        .sort();
+
+      setCharacters(charData);
+      setPlanets(["All", ...uniquePlanets]); // Adiciona a opção "All" no início
+      setLoading(false);
+    };
+
+    loadData();
+  }, []);
+
+  // Função para carregar mais personagens
+  const loadMore = () => {
+    setVisibleCount((prev) => prev + 8);
+  };
+
+  // Função para mostrar apenas os 8 primeiros personagens
+  const showLess = () => {
+    setVisibleCount(8);
+  };
+
+  // Filtragem dos personagens com base no planeta selecionado
+  const filteredCharacters =
+    selectedPlanet === "All"
+      ? characters
+      : characters.filter((char) => char.homeworld === selectedPlanet);
+
+  return (
+    <div className="container">
+      {/* Header */}
+      <header className="header">
+        <h1 className="header-title">Star Wars Characters</h1>
+        <p className="header-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.
+        </p>
+      </header>
+
+      {/* Barra de Filtro */}
+      <nav className="navbar">
+        <div className="filter-container">
+          <label htmlFor="planetFilter" className="filter-label">Filter By:</label>
+          <select
+            id="planetFilter"
+            value={selectedPlanet}
+            onChange={(e) => setSelectedPlanet(e.target.value)}
+            className="filter-dropdown"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {planets.map((planet, index) => (
+              <option key={index} value={planet}>
+                {planet}
+              </option>
+            ))}
+          </select>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        <button
+          className="button-clear"
+          onClick={() => setSelectedPlanet("All")}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Clear All
+        </button>
+      </nav>
+
+      {/* Seção principal */}
+      <section className="section">
+        <h2 className="section-title">All Characters</h2>
+
+        {/* Lista de personagens */}
+        {loading ? (
+          <div className="loading">
+            <div className="loading-spinner"></div>
+          </div>
+        ) : (
+          <div className="characters-grid">
+            {filteredCharacters.length > 0 ? (
+              filteredCharacters.slice(0, visibleCount).map((char, index) => (
+                <article key={index} className="character-card">
+                  <Image
+                    src={`/images/characters/${char.name.toLowerCase().replace(/\s+/g, "-")}.jpg`}
+                    alt={char.name}
+                    width={300}
+                    height={300}
+                    className="character-image"
+                    onError={(e) => (e.currentTarget.src = "/images/characters/default.jpg")}
+                  />
+                  <div className="character-info">
+                    <h3>{char.name}</h3>
+                    <h5>{char.homeworld}</h5>
+                    <p>Height: {char.height}</p>
+                    <p>Mass: {char.mass}</p>
+                    <p>Gender: {char.gender}</p>
+                  </div>
+                </article>
+              ))
+            ) : (
+              <p className="no-characters">Nenhum personagem encontrado.</p>
+            )}
+          </div>
+        )}
+
+        {/* Botões Load More e Show Less */}
+        <div className="load-more-container">
+          {visibleCount < filteredCharacters.length && (
+            <button className="load-more-button" onClick={loadMore}>
+              LOAD MORE
+            </button>
+          )}
+
+          {visibleCount > 8 && visibleCount >= filteredCharacters.length && (
+            <button className="load-more-button show-less" onClick={showLess}>
+              SHOW LESS
+            </button>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
