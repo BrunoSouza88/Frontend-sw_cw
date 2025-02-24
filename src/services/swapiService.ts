@@ -1,42 +1,46 @@
 import { Character, Planet } from "@/types/swapi";
 
-const BASE_URL = "https://swapi.dev/api";
+const BASE_PROXY_URL = "/api/proxy";
 
-/**
- * Busca o nome do planeta a partir da URL.
- */
-export const fetchPlanetName = async (planetUrl: string): Promise<string> => {
+export const fetchPlanets = async (): Promise<Record<string, string>> => {
   try {
-    const response = await fetch(planetUrl);
+    const response = await fetch(`${BASE_PROXY_URL}?endpoint=planets`);
     if (!response.ok) {
-      throw new Error("Erro ao buscar planeta.");
+      throw new Error("Erro ao buscar planetas.");
     }
-    const data: Planet = await response.json();
-    return data.name;
+
+    const data = await response.json();
+    const planetMap: Record<string, string> = {};
+
+    data.results.forEach((planet: Planet) => {
+      const planetIdMatch = planet.url.match(/\/planets\/(\d+)\//);
+      if (planetIdMatch) {
+        planetMap[planetIdMatch[1]] = planet.name;
+      }
+    });
+
+    return planetMap;
   } catch (error) {
     console.error(error);
-    return "Desconhecido";
+    return {};
   }
 };
 
-/**
- * Busca todos os personagens e substitui `homeworld` pelo nome real do planeta.
- */
 export const fetchCharacters = async (): Promise<Character[]> => {
   try {
-    const response = await fetch(`${BASE_URL}/people/`);
+    const response = await fetch(`${BASE_PROXY_URL}?endpoint=people`);
     if (!response.ok) {
       throw new Error("Erro ao buscar personagens.");
     }
-    const data = await response.json();
 
-    // Buscar nome do planeta para cada personagem
-    const charactersWithPlanets = await Promise.all(
-      data.results.map(async (char: Character) => {
-        const planetName = await fetchPlanetName(char.homeworld);
-        return { ...char, homeworld: planetName };
-      })
-    );
+    const data = await response.json();
+    const planetMap = await fetchPlanets();
+
+    const charactersWithPlanets = data.results.map((char: Character) => {
+      const planetIdMatch = char.homeworld.match(/\/planets\/(\d+)\//);
+      const planetName = planetIdMatch ? planetMap[planetIdMatch[1]] || "Desconhecido" : "Desconhecido";
+      return { ...char, homeworld: planetName };
+    });
 
     return charactersWithPlanets;
   } catch (error) {
