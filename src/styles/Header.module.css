@@ -5,19 +5,19 @@
   gap: 15px;
   width: 100%;
   max-width: 1820px;
-  padding: 20px 0;
+  
 }
 
 .headerTitle {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 300;
   line-height: 58px;
   color: #333333;
 }
 
 .headerDescription {
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 12px;
   letter-spacing: 0.5px;
   color: #666666;
   max-width: 900px;

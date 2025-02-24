@@ -45,7 +45,15 @@ body {
   min-height: 600px;
 }
 
-/* Botões */
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  color: #5c5b5b;
+}
+
 .load-more-container {
   display: flex;
   justify-content: center;
