@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Character } from "@/types/swapi";
 import styles from "@/styles/CharacterCard.module.css";
+import { Character } from "@/types/swapi";
 
 interface CharacterCardProps {
   character: Character;
@@ -8,7 +8,7 @@ interface CharacterCardProps {
 
 export default function CharacterCard({ character }: CharacterCardProps) {
   return (
-    <article className={styles.characterCard} aria-labelledby={`char-${character.name}`}>
+    <article className={styles.characterCard}>
       <Image
         src={`/images/characters/${character.name.toLowerCase().replace(/\s+/g, "-")}.jpg`}
         alt={`Imagem de ${character.name}`}
@@ -18,11 +18,13 @@ export default function CharacterCard({ character }: CharacterCardProps) {
         onError={(e) => (e.currentTarget.src = "/images/characters/default.jpg")}
       />
       <div className={styles.characterInfo}>
-        <h3 id={`char-${character.name}`}>{character.name}</h3>
-        <h5>{character.homeworld}</h5>
-        <p>Altura • {character.height} cm</p>
-        <p>Peso • {character.mass} kg</p>
-        <p>Gênero • {character.gender}</p>
+        <h3 className={styles.characterName}>{character.name}</h3>
+        <h5 className={styles.characterPlanet}>{character.homeworld}</h5>
+        <div className={styles.characterAttributes}>
+          <p>Altura • {character.height} cm</p>
+          <p>Peso • {character.mass} kg</p>
+          <p>Gênero • {character.gender}</p>
+        </div>
       </div>
     </article>
   );

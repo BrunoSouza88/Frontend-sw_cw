@@ -31,6 +31,7 @@ body {
   max-width: 1820px;
   min-height: 500px;
   align-items: flex-start;
+  margin-bottom: 10px;
 }
 
 .section {
@@ -51,5 +52,6 @@ body {
   align-items: center;
   width: 100%;
   margin-top: 10px;
+  margin-top: 20px;
   padding-bottom: 20px;
 }
