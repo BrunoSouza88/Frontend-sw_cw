@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { usePlanets } from "@/hooks/usePlanets";
 import styles from "@/styles/Navbar.module.css";
 
 interface NavbarProps {
@@ -7,22 +7,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ selectedPlanet, setSelectedPlanet }: NavbarProps) {
-  const [planets, setPlanets] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchPlanets = async () => {
-      try {
-        const response = await fetch("/api/proxy?endpoint=planets");
-        const data = await response.json();
-        const planetNames = data.results.map((planet: { name: string }) => planet.name);
-        setPlanets(["All", ...planetNames]); // Adiciona "All" como primeira opção
-      } catch (error) {
-        console.error("Erro ao buscar planetas:", error);
-      }
-    };
-
-    fetchPlanets();
-  }, []);
+  const { planets, loading } = usePlanets();
 
   return (
     <nav className={styles.navbar} aria-label="Filtro de personagens">
@@ -34,6 +19,7 @@ export default function Navbar({ selectedPlanet, setSelectedPlanet }: NavbarProp
           onChange={(e) => setSelectedPlanet(e.target.value)}
           className={styles.filterDropdown}
           aria-label="Selecionar planeta"
+          disabled={loading}
         >
           {planets.map((planet, index) => (
             <option key={index} value={planet}>

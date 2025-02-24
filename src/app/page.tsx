@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { fetchCharacters } from "@/services/swapiService";
-import { Character } from "@/types/swapi";
+import { useState } from "react";
+import { useCharacters } from "@/hooks/useCharacters";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import CharacterCard from "@/components/CharacterCard";
@@ -12,33 +11,17 @@ import ShowLessButton from "@/components/ShowLessButton";
 import "../styles/global.css";
 
 export default function Home() {
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const { characters, loading } = useCharacters();
   const [selectedPlanet, setSelectedPlanet] = useState<string>("All");
-  const [loading, setLoading] = useState<boolean>(true);
   const [visibleCount, setVisibleCount] = useState<number>(8);
-
-  useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-      const charData = await fetchCharacters();
-      setCharacters(charData);
-      setLoading(false);
-    };
-    loadData();
-  }, []);
 
   const filteredCharacters =
     selectedPlanet === "All"
       ? characters
       : characters.filter((char) => char.homeworld === selectedPlanet);
 
-  const loadMore = () => {
-    setVisibleCount((prev) => prev + 8);
-  };
-
-  const showLess = () => {
-    setVisibleCount(8);
-  };
+  const loadMore = () => setVisibleCount((prev) => prev + 8);
+  const showLess = () => setVisibleCount(8);
 
   return (
     <div className="container">
