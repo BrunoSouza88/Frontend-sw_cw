@@ -1,17 +1,20 @@
-.showLess {
-  margin-left: 10px;
-  background: white;
+.button {
+  width: 200px;
+  height: 42px;
   border: 1px solid #002B53;
   font-size: 14px;
   text-transform: uppercase;
   color: #002B53;
+  background: white;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
-  width: 200px;
-  height: 42px;
 }
 
-.showLess:hover {
+.button:hover {
   background: #002B53;
   color: white;
+}
+
+.showLess {
+  margin-left: 10px;
 }

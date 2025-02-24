@@ -1,4 +1,4 @@
-import styles from "@/styles/ShowLessButton.module.css";
+import styles from "@/styles/Button.module.css";
 
 interface ShowLessButtonProps {
   onClick: () => void;

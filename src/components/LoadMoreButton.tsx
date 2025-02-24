@@ -1,4 +1,4 @@
-import styles from "@/styles/LoadMoreButton.module.css"
+import styles from "@/styles/Button.module.css";
 
 interface LoadMoreButtonProps {
   onClick: () => void;
