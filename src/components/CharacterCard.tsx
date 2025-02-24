@@ -3,6 +3,7 @@ import { Character } from "@/types/swapi";
 
 interface CharacterCardProps {
   character: Character;
+  index: number;
 }
 
 export default function CharacterCard({ character }: CharacterCardProps) {

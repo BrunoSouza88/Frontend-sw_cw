@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react";
 import { fetchCharacters } from "@/services/swapiService";
 import { Character } from "@/types/swapi";
-import Image from "next/image";
+import CharacterCard from "@/components/CharacterCard";
+import SkeletonCard from "@/components/SkeletonCard";
+import Header from "@/components/Header";
+import Navbar from "@/components/Navbar";
 import "../styles/global.css";
 
 export default function Home() {
@@ -47,89 +50,48 @@ export default function Home() {
 
   return (
     <div className="container">
-      <header className="header">
-        <h1 className="header-title">Star Wars Characters</h1>
-        <p className="header-description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.
-        </p>
-      </header>
-      <nav className="navbar">
-        <div className="filter-container">
-          <label htmlFor="planetFilter" className="filter-label">Filter By:</label>
-          <select
-            id="planetFilter"
-            value={selectedPlanet}
-            onChange={(e) => setSelectedPlanet(e.target.value)}
-            className="filter-dropdown"
-          >
-            {planets.map((planet, index) => (
-              <option key={index} value={planet}>
-                {planet}
-              </option>
-            ))}
-          </select>
-        </div>
+      <Header />
+      <Navbar selectedPlanet={selectedPlanet} setSelectedPlanet={setSelectedPlanet} planets={planets} />
 
-        <button
-          className="button-clear"
-          onClick={() => setSelectedPlanet("All")}
-        >
-          Clear All
-        </button>
-      </nav>
-      <section className="section">
-        <h2 className="section-title">All Characters</h2>
-        <div className="characters-grid">
-          {loading
-            ? Array.from({ length: 8 }).map((_, index) => (
-                <div key={index} className="character-card skeleton">
-                  <div className="skeleton-image"></div>
-                  <div className="skeleton-text skeleton-title"></div>
-                  <div className="skeleton-text skeleton-subtitle"></div>
-                  <div className="skeleton-text"></div>
-                  <div className="skeleton-text"></div>
-                  <div className="skeleton-text"></div>
-                </div>
-              ))
-            : filteredCharacters.length > 0 ? (
-                filteredCharacters.slice(0, visibleCount).map((char, index) => (
-                  <article key={index} className="character-card">
-                    <Image
-                      src={`/images/characters/${char.name.toLowerCase().replace(/\s+/g, "-")}.jpg`}
-                      alt={char.name}
-                      width={300}
-                      height={300}
-                      className="character-image"
-                      onError={(e) => (e.currentTarget.src = "/images/characters/default.jpg")}
-                    />
-                    <div className="character-info">
-                      <h3>{char.name}</h3>
-                      <h5>{char.homeworld}</h5>
-                      <p>Height • {char.height}</p>
-                      <p>Mass • {char.mass}</p>
-                      <p>Gender • {char.gender}</p>
-                    </div>
-                  </article>
-                ))
-              ) : (
-                <p className="no-characters">Nenhum personagem encontrado.</p>
-              )}
-        </div>
+      <main>
+        <section className="section" aria-labelledby="characters-title">
+          <h2 id="characters-title" className="section-title">Todos os Personagens</h2>
 
-        <div className="load-more-container">
-          {visibleCount < filteredCharacters.length && (
-            <button className="load-more-button" onClick={loadMore}>
-              LOAD MORE
-            </button>
-          )}
+          <div className="characters-grid">
+            {loading
+              ? Array.from({ length: 8 }).map((_, index) => <SkeletonCard key={index} />)
+              : filteredCharacters.length > 0 ? (
+                  filteredCharacters.slice(0, visibleCount).map((char, index) => (
+                    <CharacterCard key={index} character={char} index={index} />
+                  ))
+                ) : (
+                  <p className="no-characters">Nenhum personagem encontrado.</p>
+                )}
+          </div>
 
-          {visibleCount > 8 && visibleCount >= filteredCharacters.length && (
-            <button className="load-more-button show-less" onClick={showLess}>
-              SHOW LESS
-            </button>
-          )}
-        </div>
-      </section>
+          <div className="load-more-container">
+            {visibleCount < filteredCharacters.length && (
+              <button
+                className="load-more-button"
+                onClick={loadMore}
+                aria-label="Carregar mais personagens"
+              >
+                CARREGAR MAIS
+              </button>
+            )}
+
+            {visibleCount > 8 && visibleCount >= filteredCharacters.length && (
+              <button
+                className="load-more-button show-less"
+                onClick={showLess}
+                aria-label="Mostrar menos personagens"
+              >
+                MOSTRAR MENOS
+              </button>
+            )}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
