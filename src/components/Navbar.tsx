@@ -1,30 +1,34 @@
+import styles from "@/styles/Navbar.module.css";
+
 interface NavbarProps {
   selectedPlanet: string;
   setSelectedPlanet: (planet: string) => void;
-  planets: string[];
 }
 
-export default function Navbar({ selectedPlanet, setSelectedPlanet, planets }: NavbarProps) {
+export default function Navbar({ selectedPlanet, setSelectedPlanet }: NavbarProps) {
   return (
-    <nav className="navbar">
-      <div className="filter-container">
-        <label htmlFor="planetFilter" className="filter-label">Filter By:</label>
+    <nav className={styles.navbar} aria-label="Filtro de personagens">
+      <div className={styles.filterContainer}>
+        <label htmlFor="planetFilter" className={styles.filterLabel}>Filter By:</label>
         <select
           id="planetFilter"
           value={selectedPlanet}
           onChange={(e) => setSelectedPlanet(e.target.value)}
-          className="filter-dropdown"
+          className={styles.filterDropdown}
+          aria-label="Selecionar planeta"
         >
-          {planets.map((planet, index) => (
-            <option key={index} value={planet}>
-              {planet}
-            </option>
-          ))}
+          <option value="All">All</option>
+          <option value="Tatooine">Tatooine</option>
+          <option value="Naboo">Naboo</option>
         </select>
       </div>
 
-      <button className="button-clear" onClick={() => setSelectedPlanet("All")}>
-        Clear All
+      <button
+        className={styles.buttonClear}
+        onClick={() => setSelectedPlanet("All")}
+        aria-label="Limpar filtros e mostrar todos os personagens"
+      >
+        CLEAR ALL
       </button>
     </nav>
   );

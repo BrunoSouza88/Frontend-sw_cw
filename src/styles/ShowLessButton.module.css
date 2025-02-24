@@ -1,0 +1,19 @@
+@import "./LoadMoreButton.module.css"; /* Importa os estilos do LoadMoreButton */
+
+.showLess {
+  margin-left: 10px;
+  background: white;
+  border: 1px solid #002B53;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #002B53;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  width: 200px;
+  height: 42px;
+}
+
+.showLess:hover {
+  background: #002B53;
+  color: white;
+}

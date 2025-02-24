@@ -1,12 +1,14 @@
+import styles from "@/styles/SkeletonCard.module.css";
+
 export default function SkeletonCard() {
   return (
-    <div className="character-card skeleton">
-      <div className="skeleton-image"></div>
-      <div className="skeleton-text skeleton-title"></div>
-      <div className="skeleton-text skeleton-subtitle"></div>
-      <div className="skeleton-text"></div>
-      <div className="skeleton-text"></div>
-      <div className="skeleton-text"></div>
+    <div className={styles.skeletonCard} aria-hidden="true">
+      <div className={styles.skeletonImage}></div>
+      <div className={`${styles.skeletonText} ${styles.skeletonTitle}`}></div>
+      <div className={`${styles.skeletonText} ${styles.skeletonSubtitle}`}></div>
+      <div className={styles.skeletonText}></div>
+      <div className={styles.skeletonText}></div>
+      <div className={styles.skeletonText}></div>
     </div>
   );
 }
