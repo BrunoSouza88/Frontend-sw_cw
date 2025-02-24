@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchCharacters } from "@/services/swapiService";
 import { Character } from "@/types/swapi";
 import Image from "next/image";
-import "../styles/global.css"; // Importação única do CSS global
+import "../styles/global.css"; // Mantendo a importação do CSS global
 
 export default function Home() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -16,16 +16,18 @@ export default function Home() {
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      const charData = await fetchCharacters();
+      setTimeout(async () => {
+        const charData = await fetchCharacters();
 
-      // Obter a lista única de planetas
-      const uniquePlanets = Array.from(new Set(charData.map((char) => char.homeworld)))
-        .filter((planet) => planet !== undefined && planet !== null)
-        .sort();
+        // Obter a lista única de planetas
+        const uniquePlanets = Array.from(new Set(charData.map((char) => char.homeworld)))
+          .filter((planet) => planet !== undefined && planet !== null)
+          .sort();
 
-      setCharacters(charData);
-      setPlanets(["All", ...uniquePlanets]); // Adiciona a opção "All" no início
-      setLoading(false);
+        setCharacters(charData);
+        setPlanets(["All", ...uniquePlanets]); // Adiciona a opção "All" no início
+        setLoading(false);
+      }, 2000); // Simula um delay no carregamento
     };
 
     loadData();
@@ -88,37 +90,44 @@ export default function Home() {
         <h2 className="section-title">All Characters</h2>
 
         {/* Lista de personagens */}
-        {loading ? (
-          <div className="loading">
-            <div className="loading-spinner"></div>
-          </div>
-        ) : (
-          <div className="characters-grid">
-            {filteredCharacters.length > 0 ? (
-              filteredCharacters.slice(0, visibleCount).map((char, index) => (
-                <article key={index} className="character-card">
-                  <Image
-                    src={`/images/characters/${char.name.toLowerCase().replace(/\s+/g, "-")}.jpg`}
-                    alt={char.name}
-                    width={300}
-                    height={300}
-                    className="character-image"
-                    onError={(e) => (e.currentTarget.src = "/images/characters/default.jpg")}
-                  />
-                  <div className="character-info">
-                    <h3>{char.name}</h3>
-                    <h5>{char.homeworld}</h5>
-                    <p>Height: {char.height}</p>
-                    <p>Mass: {char.mass}</p>
-                    <p>Gender: {char.gender}</p>
-                  </div>
-                </article>
+        <div className="characters-grid">
+          {loading
+            ? // Skeleton loaders enquanto carrega
+              Array.from({ length: 8 }).map((_, index) => (
+                <div key={index} className="character-card skeleton">
+                  <div className="skeleton-image"></div>
+                  <div className="skeleton-text skeleton-title"></div>
+                  <div className="skeleton-text skeleton-subtitle"></div>
+                  <div className="skeleton-text"></div>
+                  <div className="skeleton-text"></div>
+                  <div className="skeleton-text"></div>
+                </div>
               ))
-            ) : (
-              <p className="no-characters">Nenhum personagem encontrado.</p>
-            )}
-          </div>
-        )}
+            : // Personagens carregados
+              filteredCharacters.length > 0 ? (
+                filteredCharacters.slice(0, visibleCount).map((char, index) => (
+                  <article key={index} className="character-card">
+                    <Image
+                      src={`/images/characters/${char.name.toLowerCase().replace(/\s+/g, "-")}.jpg`}
+                      alt={char.name}
+                      width={300}
+                      height={300}
+                      className="character-image"
+                      onError={(e) => (e.currentTarget.src = "/images/characters/default.jpg")}
+                    />
+                    <div className="character-info">
+                      <h3>{char.name}</h3>
+                      <h5>{char.homeworld}</h5>
+                      <p>Height: {char.height}</p>
+                      <p>Mass: {char.mass}</p>
+                      <p>Gender: {char.gender}</p>
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <p className="no-characters">Nenhum personagem encontrado.</p>
+              )}
+        </div>
 
         {/* Botões Load More e Show Less */}
         <div className="load-more-container">
