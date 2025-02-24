@@ -1,7 +1,7 @@
 .navbar {
   width: 100%;
   max-width: 1820px;
-  height: 80px;
+  height: 70px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -26,7 +26,7 @@
   width: 180px;
   height: 24px;
   border-bottom: 1px solid #C8C8C8;
-  font-size: 15px;
+  font-size: 13px;
   color: #002B56;
   background: white;
   cursor: pointer;

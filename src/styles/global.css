@@ -1,4 +1,3 @@
-/* Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -18,14 +17,12 @@ body {
   overflow-x: hidden;
 }
 
-/* Container para manter o layout consistente */
 .container {
   width: 100%;
   max-width: 1820px;
   padding: 20px;
 }
 
-/* Grid de personagens */
 .characters-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -36,7 +33,6 @@ body {
   align-items: flex-start;
 }
 
-/* Seção principal */
 .section {
   width: 100%;
   max-width: 1820px;
