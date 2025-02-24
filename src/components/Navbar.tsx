@@ -21,11 +21,15 @@ export default function Navbar({ selectedPlanet, setSelectedPlanet }: NavbarProp
           aria-label="Selecionar planeta"
           disabled={loading}
         >
-          {planets.map((planet, index) => (
-            <option key={index} value={planet}>
-              {planet}
-            </option>
-          ))}
+          <option value="All">All</option> {/* Mantém apenas um "All" */}
+          {planets
+            .filter((planet) => planet !== "All") // Garante que não há outro "All"
+            .map((planet, index) => (
+              <option key={index} value={planet}>
+                {planet}
+              </option>
+            ))}
+          <option value="Desconhecido">Desconhecido</option> {/* Mantém a opção para personagens sem planeta */}
         </select>
       </div>
 

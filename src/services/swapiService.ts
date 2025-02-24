@@ -2,6 +2,9 @@ import { Character, Planet } from "@/types/swapi";
 
 const BASE_PROXY_URL = "/api/proxy";
 
+/**
+ * Busca os planetas e cria um mapa de IDs para nomes.
+ */
 export const fetchPlanets = async (): Promise<Record<string, string>> => {
   try {
     const response = await fetch(`${BASE_PROXY_URL}?endpoint=planets`);
@@ -26,6 +29,9 @@ export const fetchPlanets = async (): Promise<Record<string, string>> => {
   }
 };
 
+/**
+ * Busca personagens e associa os planetas correspondentes.
+ */
 export const fetchCharacters = async (): Promise<Character[]> => {
   try {
     const response = await fetch(`${BASE_PROXY_URL}?endpoint=people`);
@@ -37,7 +43,7 @@ export const fetchCharacters = async (): Promise<Character[]> => {
     const planetMap = await fetchPlanets();
 
     const charactersWithPlanets = data.results.map((char: Character) => {
-      const planetIdMatch = char.homeworld.match(/\/planets\/(\d+)\//);
+      const planetIdMatch = char.homeworld?.match(/\/planets\/(\d+)\//);
       const planetName = planetIdMatch ? planetMap[planetIdMatch[1]] || "Desconhecido" : "Desconhecido";
       return { ...char, homeworld: planetName };
     });

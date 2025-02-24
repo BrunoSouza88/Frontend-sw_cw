@@ -31,6 +31,8 @@ export default function Home() {
   const filteredCharacters =
     selectedPlanet === "All"
       ? characters
+      : selectedPlanet === "Desconhecido"
+      ? characters.filter((char) => char.homeworld === "Desconhecido")
       : characters.filter((char) => char.homeworld === selectedPlanet);
 
   const loadMore = () => {
