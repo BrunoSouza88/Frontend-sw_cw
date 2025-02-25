@@ -6,6 +6,11 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+}
+
+.characterCard:hover {
+  transform: scale(1.03); 
 }
 
 .characterImage {
