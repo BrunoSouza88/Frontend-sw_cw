@@ -7,14 +7,15 @@
   color: #002B53;
   background: white;
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .button:hover {
   background: #002B53;
   color: white;
+  transform: scale(1.05);
 }
 
-.showLess {
-  margin-left: 10px;
+.button:active {
+  transform: scale(0.95);
 }

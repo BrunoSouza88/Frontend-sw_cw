@@ -23,17 +23,7 @@ body {
   padding: 20px;
 }
 
-.characters-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  width: 100%;
-  max-width: 1820px;
-  min-height: 500px;
-  align-items: flex-start;
-  margin-bottom: 10px;
-}
-
+/* Seção Principal */
 .section {
   width: 100%;
   max-width: 1820px;
@@ -46,7 +36,7 @@ body {
 }
 
 .section-title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   text-align: left;
   margin-bottom: 20px;
@@ -54,12 +44,41 @@ body {
   color: #5c5b5b;
 }
 
+/* Grid de personagens */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 1820px;
+  min-height: 500px;
+  align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .characters-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .characters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .characters-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Container de botões */
 .load-more-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 10px;
   margin-top: 20px;
   padding-bottom: 20px;
 }

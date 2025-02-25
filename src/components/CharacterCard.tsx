@@ -4,7 +4,8 @@ import { Character } from "@/types/swapi";
 
 interface CharacterCardProps {
   character: Character;
-  onClick: () => void; // Nova propriedade para abrir o modal
+  onClick: () => void;
+  className?: string;
 }
 
 export default function CharacterCard({ character, onClick }: CharacterCardProps) {
