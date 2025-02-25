@@ -1,22 +1,18 @@
 import Image from "next/image";
 import styles from "@/styles/Modal.module.css";
+import { IoClose } from "react-icons/io5";
+import { FaWhatsapp } from "react-icons/fa";
+import { Character } from "@/types/swapi";
 
 interface ModalProps {
-  isOpen: boolean;
+  character: Character | null;
   onClose: () => void;
-  character: {
-    name: string;
-    homeworld: string;
-    height: string;
-    mass: string;
-    gender: string;
-  };
 }
 
-export default function Modal({ isOpen, onClose, character }: ModalProps) {
-  if (!isOpen) return null;
+export default function Modal({ character, onClose }: ModalProps) {
+  if (!character) return null;
 
-  // Gerando o nome correto da imagem
+  // Nome formatado para buscar a imagem correta
   const normalizedName = character.name
     .toLowerCase()
     .replace(/\s+/g, "-")
@@ -24,26 +20,51 @@ export default function Modal({ isOpen, onClose, character }: ModalProps) {
 
   const imageUrl = `/images/characters/${normalizedName}.jpg`;
 
+  // Mensagem de compartilhamento para WhatsApp
+  const shareMessage = `🌟 ${character.name} - Star Wars 🌟\n
+🏠 Planeta: ${character.homeworld}
+📏 Altura: ${character.height} cm
+⚖️ Peso: ${character.mass} kg
+🚻 Gênero: ${character.gender}`;
+
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
+
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeButton} onClick={onClose}>
-          ✖
+        <button className={styles.closeButton} onClick={onClose} aria-label="Fechar modal">
+          <IoClose size={24} />
         </button>
+
         <Image
           src={imageUrl}
-          alt={character.name}
-          width={400} // Ajuste para tamanho maior
-          height={300} // Ajuste para manter proporção melhor
+          alt={`Imagem de ${character.name}`}
+          width={400}
+          height={400}
           className={styles.modalImage}
           onError={(e) => (e.currentTarget.src = "/images/characters/default.jpg")}
         />
+
         <div className={styles.characterDetails}>
           <h2>{character.name}</h2>
-          <p>Planeta: {character.homeworld}</p>
-          <p>Altura: {character.height} cm</p>
-          <p>Peso: {character.mass} kg</p>
-          <p>Gênero: {character.gender}</p>
+          <p><strong>Planeta:</strong> {character.homeworld}</p>
+          <p><strong>Altura:</strong> {character.height} cm</p>
+          <p><strong>Peso:</strong> {character.mass} kg</p>
+          <p><strong>Gênero:</strong> {character.gender}</p>
+        </div>
+
+        {/* ✅ Botão de Compartilhar no WhatsApp */}
+        <div className={styles.shareContainer}>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.shareButton}
+            aria-label="Compartilhar no WhatsApp"
+          >
+            <FaWhatsapp size={24} />
+            Compartilhar no WhatsApp
+          </a>
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ import CharacterCard from "@/components/CharacterCard";
 import SkeletonCard from "@/components/SkeletonCard";
 import LoadMoreButton from "@/components/LoadMoreButton";
 import ShowLessButton from "@/components/ShowLessButton";
+import Modal from "@/components/Modal";
 import { useSectionTitle } from "@/hooks/useSectionTitle";
 import "../styles/global.css";
 
@@ -17,6 +18,7 @@ export default function Home() {
   const [selectedPlanet, setSelectedPlanet] = useState<string>("All");
   const [loading, setLoading] = useState<boolean>(true);
   const [visibleCount, setVisibleCount] = useState<number>(8);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -58,7 +60,7 @@ export default function Home() {
             {loading
               ? Array.from({ length: 8 }).map((_, index) => <SkeletonCard key={index} />)
               : filteredCharacters.slice(0, visibleCount).map((char, index) => (
-                  <CharacterCard key={index} character={char} />
+                  <CharacterCard key={index} character={char} onClick={() => setSelectedCharacter(char)} />
                 ))}
           </div>
 
@@ -73,6 +75,9 @@ export default function Home() {
           )}
         </section>
       </main>
+      {selectedCharacter && (
+        <Modal character={selectedCharacter} onClose={() => setSelectedCharacter(null)} />
+      )}
     </div>
   );
 }
