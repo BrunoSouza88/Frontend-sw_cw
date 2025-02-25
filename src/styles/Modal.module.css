@@ -4,11 +4,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Fundo escuro para o efeito de blur */
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(4px); /* Efeito de desfoque */
+  backdrop-filter: blur(4px);
 }
 
 .modalContent {
@@ -40,6 +40,7 @@
 
 .characterDetails {
   margin-top: 15px;
+  padding-bottom: 35px;
 }
 
 .characterDetails h2 {
@@ -50,4 +51,33 @@
 .characterDetails p {
   font-size: 16px;
   margin: 5px 0;
+}
+
+.shareContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.shareButton {
+  width: 100%;
+  background: #25D366;
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.shareButton:hover {
+  background: #60e37b;
+}
+
+.shareIcon {
+  color: white;
+  font-size: 24px;
 }

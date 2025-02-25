@@ -11,8 +11,7 @@ interface ModalProps {
 
 export default function Modal({ character, onClose }: ModalProps) {
   if (!character) return null;
-
-  // Nome formatado para buscar a imagem correta
+  
   const normalizedName = character.name
     .toLowerCase()
     .replace(/\s+/g, "-")
@@ -20,12 +19,11 @@ export default function Modal({ character, onClose }: ModalProps) {
 
   const imageUrl = `/images/characters/${normalizedName}.jpg`;
 
-  // Mensagem de compartilhamento para WhatsApp
-  const shareMessage = `🌟 ${character.name} - Star Wars 🌟\n
-🏠 Planeta: ${character.homeworld}
-📏 Altura: ${character.height} cm
-⚖️ Peso: ${character.mass} kg
-🚻 Gênero: ${character.gender}`;
+  const shareMessage = `${character.name} - Star Wars\n
+Planeta: ${character.homeworld}
+Altura: ${character.height} cm
+Peso: ${character.mass} kg
+Gênero: ${character.gender}`;
 
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
 
@@ -53,17 +51,9 @@ export default function Modal({ character, onClose }: ModalProps) {
           <p><strong>Gênero:</strong> {character.gender}</p>
         </div>
 
-        {/* ✅ Botão de Compartilhar no WhatsApp */}
         <div className={styles.shareContainer}>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.shareButton}
-            aria-label="Compartilhar no WhatsApp"
-          >
-            <FaWhatsapp size={24} />
-            Compartilhar no WhatsApp
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={styles.shareButton} aria-label="Compartilhar no WhatsApp">
+            <FaWhatsapp className={styles.shareIcon} />
           </a>
         </div>
       </div>
