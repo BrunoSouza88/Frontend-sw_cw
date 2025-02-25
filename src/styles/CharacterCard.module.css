@@ -1,23 +1,41 @@
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .characterCard {
   width: 100%;
-  max-width: 3200px;
+  max-width: 400px;
   background: #F8F8F8;
-  padding: 8px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  animation: fadeInScale 0.4s ease-out forwards;
 }
 
 .characterCard:hover {
-  transform: scale(1.03); 
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #f0f0f0;
 }
 
 .characterImage {
   width: 100%;
   height: 120px;
   object-fit: cover;
-  border-radius: 8px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.characterCard:hover .characterImage {
+  opacity: 0.85;
 }
 
 .characterInfo {
@@ -43,5 +61,6 @@
   flex-direction: column;
   gap: 4px;
   font-size: 10px;
-  color: #797878
+  color: #797878;
 }
+

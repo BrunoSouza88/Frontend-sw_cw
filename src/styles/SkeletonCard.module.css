@@ -1,17 +1,18 @@
 .skeletonCard {
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   background: #F8F8F8;
-  padding: 14px;
+  padding: 10px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
   animation: pulse 1.5s infinite ease-in-out;
 }
 
 .skeletonImage {
   width: 100%;
-  height: 220px;
+  height: 140px; /* Ajustado para manter a proporção */
   background: linear-gradient(90deg, #E0E0E0 25%, #F0F0F0 50%, #E0E0E0 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite linear;
@@ -19,15 +20,15 @@
 }
 
 .skeletonText {
-  height: 15px;
+  height: 12px;
   background: #D9D9D9;
-  margin-top: 10px;
   border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
 }
 
 .skeletonTitle {
   width: 80%;
-  height: 20px;
+  height: 18px;
 }
 
 .skeletonSubtitle {
@@ -37,4 +38,10 @@
 @keyframes skeleton-loading {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+@keyframes pulse {
+  0% { background-color: #e0e0e0; }
+  50% { background-color: #f5f5f5; }
+  100% { background-color: #e0e0e0; }
 }
