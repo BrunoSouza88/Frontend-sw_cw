@@ -30,9 +30,9 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
         <h3 className={styles.characterName}>{character.name}</h3>
         <h5 className={styles.characterPlanet}>{character.homeworld}</h5>
         <div className={styles.characterAttributes}>
-          <p>Altura: {character.height} cm</p>
-          <p>Peso: {character.mass} kg</p>
-          <p>Gênero: {character.gender}</p>
+          <p>Altura • {character.height} cm</p>
+          <p>Peso • {character.mass} kg</p>
+          <p>Gênero • {character.gender}</p>
         </div>
       </div>
     </article>

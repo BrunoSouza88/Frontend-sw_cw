@@ -7,12 +7,15 @@ export function usePlanets() {
   useEffect(() => {
     const fetchPlanets = async () => {
       try {
-        const response = await fetch("/api/proxy?endpoint=planets");
+        const response = await fetch("https://swapi.dev/api/planets/");
         const data = await response.json();
-        const planetNames = data.results.map((planet: { name: string }) => planet.name);
+
+        const planetNames = data.results?.map((planet: { name: string }) => planet.name) || [];
+
         setPlanets(["All", ...planetNames]);
       } catch (error) {
         console.error("Erro ao buscar planetas:", error);
+        setPlanets(["All"]);
       } finally {
         setLoading(false);
       }
