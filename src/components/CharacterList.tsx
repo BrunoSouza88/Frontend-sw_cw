@@ -5,7 +5,13 @@ import styles from "@/styles/CharacterList.module.css";
 
 export default function CharacterList({ characters, visibleCount, loading, onCharacterClick }: CharacterListProps) {
   return (
-    <div className={`${styles.charactersGrid} fading-in`}>
+    <div
+      className={`${styles.charactersGrid} fading-in`}
+      role="region"
+      aria-label="Lista de personagens de Star Wars"
+      aria-live="polite"
+      aria-busy={loading}
+    >
       {loading
         ? Array.from({ length: 8 }).map((_, index) => <SkeletonCard key={index} />)
         : characters.slice(0, visibleCount).map((char, index) => (

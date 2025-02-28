@@ -6,9 +6,14 @@ export const fetchPlanets = async (): Promise<Record<string, string>> => {
   if (Object.keys(cachedPlanets).length) return cachedPlanets;
 
   try {
-    const response = await fetch("/api/proxy?endpoint=planets");
+    const response = await fetch("/api/proxy?endpoint=planets", {
+      headers: {
+        "Cache-Control": "s-maxage=3600, stale-while-revalidate",
+      },
+    });
+
     if (!response.ok) throw new Error("Erro ao buscar planetas.");
-    
+
     const data = await response.json();
     cachedPlanets = data.results.reduce((acc: Record<string, string>, planet: Planet) => {
       const planetIdMatch = planet.url.match(/\/planets\/(\d+)\//);

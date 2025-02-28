@@ -1,4 +1,4 @@
-import { LoadButtonsProps } from "@/types/LoadButtonsProps"
+import { LoadButtonsProps } from "@/types/LoadButtonsProps";
 import LoadMoreButton from "@/components/LoadMoreButton";
 import ShowLessButton from "@/components/ShowLessButton";
 import styles from "@/styles/LoadButtons.module.css";
@@ -13,11 +13,11 @@ export default function LoadButtons({ visibleCount, totalCharacters, setVisibleC
   };
 
   return (
-    <div className={styles.loadMoreContainer}>
+    <div className={styles.loadMoreContainer} role="group" aria-label="Controles de paginação">
       {visibleCount < totalCharacters ? (
-        <LoadMoreButton onClick={loadMore} />
+        <LoadMoreButton onClick={loadMore} aria-live="polite" />
       ) : (
-        visibleCount > 8 && <ShowLessButton onClick={showLess} />
+        visibleCount > 8 && <ShowLessButton onClick={showLess} aria-live="polite" />
       )}
     </div>
   );
