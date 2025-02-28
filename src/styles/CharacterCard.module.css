@@ -30,13 +30,11 @@
   background: #f0f0f0;
 }
 
-/* 📌 Ajuste para versão desktop: disposição normal */
 .characterContent {
   display: flex;
   flex-direction: column;
 }
 
-/* 📌 Imagem do personagem */
 .characterImage {
   width: 100%;
   height: 120px;
@@ -48,7 +46,6 @@
   opacity: 0.85;
 }
 
-/* 📌 Informações do personagem */
 .characterInfo {
   padding: 8px;
   text-align: left;
@@ -67,7 +64,6 @@
   margin-bottom: 8px;
 }
 
-/* 📌 Oculta altura, peso e gênero no mobile */
 .characterAttributes {
   display: flex;
   flex-direction: column;
@@ -76,15 +72,14 @@
   color: #797878;
 }
 
-/* 🎯 RESPONSIVIDADE: ajustes para mobile */
 @media (max-width: 768px) {
   .characterCard {
-    flex-direction: row; /* Imagem e texto na mesma linha */
+    flex-direction: row;
     align-items: center;
   }
 
   .characterImage {
-    width: 80px;  /* Tamanho menor no mobile */
+    width: 80px;
     height: 80px;
     margin-right: 12px;
   }
@@ -96,10 +91,10 @@
   }
 
   .characterInfo {
-    flex: 1; /* Permite que o nome e planeta ocupem o espaço ao lado da imagem */
+    flex: 1;
   }
 
   .characterAttributes {
-    display: none; /* Esconde altura, peso e gênero */
+    display: none;
   }
 }

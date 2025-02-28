@@ -19,26 +19,21 @@ describe("usePlanets Hook", () => {
 
   test("Retorna o estado inicial corretamente", () => {
     const { result } = renderHook(() => usePlanets());
-
     expect(result.current.planets).toEqual([]);
     expect(result.current.loading).toBe(true);
   });
 
   test("Busca e define os planetas corretamente", async () => {
     const { result } = renderHook(() => usePlanets());
-
     await waitFor(() => expect(result.current.loading).toBe(false));
-
-    expect(result.current.planets).toEqual(["All", "Tatooine", "Alderaan"]);
+    await waitFor(() => expect(result.current.planets).toEqual(["All", "Tatooine", "Alderaan"]));
   });
 
   test("Lida com erro na API corretamente", async () => {
     global.fetch = jest.fn(() => Promise.reject(new Error("Erro na API"))) as jest.Mock;
-
+    
     const { result } = renderHook(() => usePlanets());
-
     await waitFor(() => expect(result.current.loading).toBe(false));
-
-    expect(result.current.planets).toEqual(["All"]);
+    await waitFor(() => expect(result.current.planets).toEqual(["All"]));
   });
 });

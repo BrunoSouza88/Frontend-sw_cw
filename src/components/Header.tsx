@@ -6,6 +6,7 @@ export default function Header() {
       <h1 className={styles.headerTitle}>Star Wars Characters</h1>
       <p className={styles.headerDescription}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.
       </p>
     </header>
   );
