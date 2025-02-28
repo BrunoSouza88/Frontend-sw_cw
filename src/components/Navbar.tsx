@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
 import { usePlanets } from "@/hooks/usePlanets";
 import styles from "@/styles/Navbar.module.css";
+import { NavbarProps } from "@/types/NavbarProps";
 
-interface NavbarProps {
-  selectedPlanet: string;
-  setSelectedPlanet: (planet: string) => void;
-}
+
 
 export default function Navbar({ selectedPlanet, setSelectedPlanet }: NavbarProps) {
   const { planets, loading } = usePlanets();
   const [isFilterActive, setIsFilterActive] = useState(false);
 
-  // Atualiza o estado quando o filtro é alterado
   useEffect(() => {
     setIsFilterActive(selectedPlanet !== "All");
   }, [selectedPlanet]);

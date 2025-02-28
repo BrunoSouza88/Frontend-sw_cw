@@ -1,8 +1,5 @@
 import styles from "@/styles/Button.module.css";
-
-interface ShowLessButtonProps {
-  onClick: () => void;
-}
+import { ShowLessButtonProps } from "@/types/ShowLessButtonProps";
 
 export default function ShowLessButton({ onClick }: ShowLessButtonProps) {
   return (

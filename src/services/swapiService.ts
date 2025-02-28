@@ -1,4 +1,4 @@
-import { Character, Planet } from "@/types/swapi";
+import { Character, Planet } from "@/types";
 
 let cachedPlanets: Record<string, string> = {};
 

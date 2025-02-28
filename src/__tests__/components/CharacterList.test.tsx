@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import CharacterList from "@/components/CharacterList";
-import { Character } from "@/types/swapi";
+import { Character } from "@/types";
 
 describe("CharacterList Component", () => {
   test("Exibe SkeletonCards enquanto carrega", () => {

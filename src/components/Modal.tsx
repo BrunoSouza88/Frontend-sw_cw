@@ -2,12 +2,7 @@ import Image from "next/image";
 import styles from "@/styles/Modal.module.css";
 import { IoClose } from "react-icons/io5";
 import { FaWhatsapp } from "react-icons/fa";
-import { Character } from "@/types/swapi";
-
-interface ModalProps {
-  character: Character | null;
-  onClose: () => void;
-}
+import { ModalProps } from "@/types/ModalProps";
 
 export default function Modal({ character, onClose }: ModalProps) {
   if (!character) return null;

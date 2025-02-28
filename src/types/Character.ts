@@ -5,9 +5,3 @@ export interface Character {
   mass: string;
   gender: string;
 }
-
-
-export interface Planet {
-  name: string;
-  url: string;
-}

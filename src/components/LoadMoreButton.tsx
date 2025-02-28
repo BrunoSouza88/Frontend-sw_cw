@@ -1,8 +1,5 @@
+import { LoadMoreButtonProps } from "@/types/LoadMoreButtonProps"
 import styles from "@/styles/Button.module.css";
-
-interface LoadMoreButtonProps {
-  onClick: () => void;
-}
 
 export default function LoadMoreButton({ onClick }: LoadMoreButtonProps) {
   return (

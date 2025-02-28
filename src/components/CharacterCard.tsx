@@ -1,14 +1,8 @@
 import Image from "next/image";
 import styles from "@/styles/CharacterCard.module.css";
-import { Character } from "@/types/swapi";
+import { CharacterCardProps } from "@/types/CharacterCardProps";
 import { defaultImage } from "@/utils/defaultImage";
 import { normalizeName } from "@/utils/normalizeName";
-
-interface CharacterCardProps {
-  character: Character;
-  onClick: () => void;
-  className?: string;
-}
 
 export default function CharacterCard({ character, onClick }: CharacterCardProps) {
   const imageUrl = `/images/characters/${normalizeName(character.name)}.jpg`;

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { fetchCharacters } from "@/services/swapiService";
-import { Character } from "@/types/swapi";
+import { Character } from "@/types";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Modal from "@/components/Modal";

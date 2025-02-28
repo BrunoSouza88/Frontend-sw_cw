@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import CharacterCard from "@/components/CharacterCard";
-import { Character } from "@/types/swapi";
+import { Character } from "@/types";
 
 describe("CharacterCard Component", () => {
   const mockCharacter: Character = {

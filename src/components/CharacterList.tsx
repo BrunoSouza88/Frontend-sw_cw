@@ -1,14 +1,7 @@
-import { Character } from "@/types/swapi";
+import { CharacterListProps } from "@/types/CharacterListProps";
 import CharacterCard from "@/components/CharacterCard";
 import SkeletonCard from "@/components/SkeletonCard";
 import styles from "@/styles/CharacterList.module.css";
-
-interface CharacterListProps {
-  characters: Character[];
-  visibleCount: number;
-  loading: boolean;
-  onCharacterClick: (char: Character) => void;
-}
 
 export default function CharacterList({ characters, visibleCount, loading, onCharacterClick }: CharacterListProps) {
   return (
