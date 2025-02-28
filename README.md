@@ -82,16 +82,6 @@ frontend-sw-cw/
 │-- README.md             # Documentação
 ```
 
-## 🔍 Melhorias Implementadas
-- **Acessibilidade (A11Y):** 
-  - Uso de `aria-labels` para melhor navegação por leitores de tela.
-  - Adição de `role` e `tabIndex` para navegação sem mouse.
-  - Uso correto de elementos semânticos (`button`, `article`, `section`).
-- **Otimização de Performance:**
-  - Cache HTTP (s-maxage=3600, stale-while-revalidate) para reduzir chamadas desnecessárias.
-  - Uso de cache interno (`cachedPlanets`) para evitar múltiplas requisições.
-  - AbortController para cancelar requisições desnecessárias.
-
 ## ✨ Contribuição
 Se quiser contribuir para o projeto, sinta-se à vontade para abrir uma **issue** ou enviar um **pull request**.
 
