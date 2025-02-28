@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { fetchCharacters } from "@/services/swapiService";
-import { Character } from "@/types";
+import { useState } from "react";
+import { useCharacters } from "@/hooks/useCharacters";
+import { Character } from "@/types/Character";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Modal from "@/components/Modal";
@@ -10,20 +10,9 @@ import FilterableCharacters from "@/components/FilterableCharacters";
 import "../styles/global.css";
 
 export default function Home() {
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const { characters, loading } = useCharacters();
   const [selectedPlanet, setSelectedPlanet] = useState<string>("All");
-  const [loading, setLoading] = useState<boolean>(true);
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
-
-  useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-      const charData = await fetchCharacters();
-      setCharacters(charData);
-      setLoading(false);
-    };
-    loadData();
-  }, []);
 
   return (
     <div className="container">
@@ -34,7 +23,7 @@ export default function Home() {
           characters={characters} 
           loading={loading} 
           selectedPlanet={selectedPlanet} 
-          onCharacterClick={(char) => setSelectedCharacter(char)} 
+          onCharacterClick={setSelectedCharacter} 
         />
       </main>
       {selectedCharacter && (
