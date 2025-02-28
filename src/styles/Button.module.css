@@ -1,3 +1,12 @@
+.loadMoreContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+  padding-bottom: 20px;
+}
+
 .button {
   width: 200px;
   height: 42px;
@@ -8,6 +17,16 @@
   background: white;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
+  display: block;
+  margin: 10px auto;
+}
+
+.loadMoreButton {
+  margin-top: 10px;
+}
+
+.showLessButton {
+  margin-top: 10px;
 }
 
 .button:hover {
@@ -18,4 +37,12 @@
 
 .button:active {
   transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .button {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+  }
 }

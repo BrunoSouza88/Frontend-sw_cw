@@ -20,14 +20,14 @@ describe("usePlanets Hook", () => {
   test("Retorna o estado inicial corretamente", () => {
     const { result } = renderHook(() => usePlanets());
 
-    expect(result.current.planets).toEqual([]); // Inicialmente vazio
-    expect(result.current.loading).toBe(true); // Loading começa como true
+    expect(result.current.planets).toEqual([]);
+    expect(result.current.loading).toBe(true);
   });
 
   test("Busca e define os planetas corretamente", async () => {
     const { result } = renderHook(() => usePlanets());
 
-    await waitFor(() => expect(result.current.loading).toBe(false)); // Aguarda loading ser false
+    await waitFor(() => expect(result.current.loading).toBe(false));
 
     expect(result.current.planets).toEqual(["All", "Tatooine", "Alderaan"]);
   });
@@ -37,8 +37,8 @@ describe("usePlanets Hook", () => {
 
     const { result } = renderHook(() => usePlanets());
 
-    await waitFor(() => expect(result.current.loading).toBe(false)); // Aguarda loading ser false após erro
+    await waitFor(() => expect(result.current.loading).toBe(false));
 
-    expect(result.current.planets).toEqual(["All"]); // Deve conter apenas "All"
+    expect(result.current.planets).toEqual(["All"]);
   });
 });

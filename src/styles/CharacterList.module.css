@@ -6,6 +6,7 @@
   max-width: 1820px;
   min-height: 500px;
   align-items: flex-start;
+  padding: 16px;
 }
 
 @media (max-width: 1024px) {
@@ -25,3 +26,10 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+@media (max-width: 480px) {
+  .removeAllButton {
+    display: none;
+  }
+}
+

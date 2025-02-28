@@ -35,6 +35,7 @@
   cursor: pointer;
 }
 
+/* 🎯 Botão "CLEAR ALL" */
 .buttonClear {
   width: 150px;
   height: 36px;
@@ -49,4 +50,10 @@
 .buttonClear:hover {
   background: #C8C8C8;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .buttonClear {
+    display: none;
+  }
 }

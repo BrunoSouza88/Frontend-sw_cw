@@ -1,4 +1,4 @@
-.button {
+/*.button {
   width: 200px;
   height: 42px;
   border: 1px solid #002B53;
@@ -19,3 +19,4 @@
 .button:active {
   transform: scale(0.95);
 }
+/*
