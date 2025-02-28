@@ -15,7 +15,6 @@ describe("CharacterCard Component", () => {
     render(<CharacterCard character={mockCharacter} onClick={() => {}} />);
 
     expect(screen.getByText("R5-D4")).toBeInTheDocument();
-
     expect(screen.getByText("Tatooine")).toBeInTheDocument();
     expect(screen.getByText("Altura • 97 cm")).toBeInTheDocument();
     expect(screen.getByText("Peso • 32 kg")).toBeInTheDocument();
@@ -27,7 +26,6 @@ describe("CharacterCard Component", () => {
     render(<CharacterCard character={mockCharacter} onClick={mockOnClick} />);
 
     const characterCard = screen.getByRole("button");
-
     fireEvent.click(characterCard);
 
     expect(mockOnClick).toHaveBeenCalledTimes(1);
@@ -36,11 +34,10 @@ describe("CharacterCard Component", () => {
   test("Exibe a imagem correta do personagem", () => {
     render(<CharacterCard character={mockCharacter} onClick={() => {}} />);
   
-    const characterImage = screen.getByRole("img", { name: /imagem de r5-d4/i });
-  
-    const imageSrc = characterImage.getAttribute("src");
-  
-    expect(imageSrc).toMatch(/url=%2Fimages%2Fcharacters%2Fr5-d4\.jpg/);
+    const characterImage = screen.getByRole("img", { name: /Retrato de R5-D4 de Star Wars/i });
+    
+    expect(characterImage).toBeInTheDocument();
+    expect(characterImage).toHaveAttribute("src", expect.stringContaining("r5-d4.jpg"));
   });    
 
   test("Dispara a função onClick ao clicar no card", () => {
@@ -54,13 +51,13 @@ describe("CharacterCard Component", () => {
     expect(mockOnClick).toHaveBeenCalledTimes(1);
   });  
 
-  test("Usa a imagem padrão quando a original falha ao carregar", () => {
+  test("Usa a imagem padrão quando a original falha ao carregar", async () => {
     render(<CharacterCard character={mockCharacter} onClick={() => {}} />);
     
-    const characterImage = screen.getByRole("img", { name: /imagem de r5-d4/i });
+    const characterImage = await screen.findByRole("img", { name: /Retrato de R5-D4 de Star Wars/i });
   
     fireEvent.error(characterImage);
   
-    expect(characterImage).toHaveAttribute("src", "/images/characters/default.jpg");
+    expect(characterImage).toHaveAttribute("src", expect.stringContaining("default.jpg"));
   });
 });

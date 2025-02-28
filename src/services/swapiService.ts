@@ -1,54 +1,36 @@
 import { Character, Planet } from "@/types/swapi";
 
-const BASE_PROXY_URL = "/api/proxy";
+let cachedPlanets: Record<string, string> = {};
 
-/**
- * Busca os planetas e cria um mapa de IDs para nomes.
- */
 export const fetchPlanets = async (): Promise<Record<string, string>> => {
+  if (Object.keys(cachedPlanets).length) return cachedPlanets;
   try {
-    const response = await fetch(`${BASE_PROXY_URL}?endpoint=planets`);
-    if (!response.ok) {
-      throw new Error("Erro ao buscar planetas.");
-    }
-
+    const response = await fetch("/api/proxy?endpoint=planets");
+    if (!response.ok) throw new Error("Erro ao buscar planetas.");
     const data = await response.json();
-    const planetMap: Record<string, string> = {};
-
-    data.results.forEach((planet: Planet) => {
+    cachedPlanets = data.results.reduce((acc: Record<string, string>, planet: Planet) => {
       const planetIdMatch = planet.url.match(/\/planets\/(\d+)\//);
-      if (planetIdMatch) {
-        planetMap[planetIdMatch[1]] = planet.name;
-      }
-    });
-
-    return planetMap;
+      if (planetIdMatch) acc[planetIdMatch[1]] = planet.name;
+      return acc;
+    }, {});
+    return cachedPlanets;
   } catch (error) {
     console.error(error);
     return {};
   }
 };
 
-/**
- * Busca personagens e associa os planetas correspondentes.
- */
 export const fetchCharacters = async (): Promise<Character[]> => {
   try {
-    const response = await fetch(`${BASE_PROXY_URL}?endpoint=people`);
-    if (!response.ok) {
-      throw new Error("Erro ao buscar personagens.");
-    }
-
+    const response = await fetch("/api/proxy?endpoint=people");
+    if (!response.ok) throw new Error("Erro ao buscar personagens.");
     const data = await response.json();
     const planetMap = await fetchPlanets();
 
-    const charactersWithPlanets = data.results.map((char: Character) => {
+    return data.results.map((char: Character) => {
       const planetIdMatch = char.homeworld?.match(/\/planets\/(\d+)\//);
-      const planetName = planetIdMatch ? planetMap[planetIdMatch[1]] || "Desconhecido" : "Desconhecido";
-      return { ...char, homeworld: planetName };
+      return { ...char, homeworld: planetIdMatch ? planetMap[planetIdMatch[1]] || "Desconhecido" : "Desconhecido" };
     });
-
-    return charactersWithPlanets;
   } catch (error) {
     console.error(error);
     return [];

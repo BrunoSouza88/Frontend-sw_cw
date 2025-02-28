@@ -1,6 +1,8 @@
 import Image from "next/image";
 import styles from "@/styles/CharacterCard.module.css";
 import { Character } from "@/types/swapi";
+import { defaultImage } from "@/utils/defaultImage";
+import { normalizeName } from "@/utils/normalizeName";
 
 interface CharacterCardProps {
   character: Character;
@@ -9,22 +11,17 @@ interface CharacterCardProps {
 }
 
 export default function CharacterCard({ character, onClick }: CharacterCardProps) {
-  const normalizedName = character.name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-
-  const imageUrl = `/images/characters/${normalizedName}.jpg`;
+  const imageUrl = `/images/characters/${normalizeName(character.name)}.jpg`;
 
   return (
     <article className={styles.characterCard} onClick={onClick} tabIndex={0} role="button">
       <Image
         src={imageUrl}
-        alt={`Imagem de ${character.name}`}
+        alt={`Retrato de ${character.name} de Star Wars`}
         width={300}
         height={300}
         className={styles.characterImage}
-        onError={(e) => (e.currentTarget.src = "/images/characters/default.jpg")}
+        onError={defaultImage}
       />
       <div className={styles.characterInfo}>
         <h3 className={styles.characterName}>{character.name}</h3>
